@@ -27,3 +27,5 @@ Test application with weather forecast
    “Ошибка получения данных”.
 4. Весь код должен быть покрыт комментариями.
 5. Для управления состоянием использовать flutter_bloc.
+
+<img width="888" alt="Untitled" src="https://user-images.githubusercontent.com/63638747/174816404-794c71cc-ef2e-4cb3-bb70-97f8c6d61462.png">

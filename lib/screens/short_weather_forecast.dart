@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast/blocs/short_forecast/short_forecast_bloc.dart';
+import 'package:weather_icons/weather_icons.dart';
 import '../blocs/long_forecast/long_forecast_bloc.dart';
 import '../text_constants.dart';
 import 'long_weather_forecast.dart';
@@ -107,13 +108,49 @@ class ShortWeatherForecast extends StatelessWidget {
       itemCount: state.weatherInfo.length,
       itemBuilder: (context, index) {
         var item = state.weatherInfo[index];
-        return ListTile(
-          //Температура, ветер и влажность соответственно
+        return Card(
+            child: ListTile(
+          leading: _getIconById(item.weatherId),
           title: Text(
               "${TextConstant.temperature}: ${item.temp}, ${TextConstant.wind}: ${item.windSpeed}, ${TextConstant.humidity}: ${item.humidity}"),
           subtitle: Text("${TextConstant.dateTime}: ${item.dtTxt}"),
-        );
+        ));
       },
     );
+  }
+
+  //Получение иконки для погоды по id из API
+  Icon _getIconById(int id) {
+    IconData iconData = Icons.error;
+    Color color = Colors.black;
+
+    //Тут был выбор между условиями и switch case, но выбрал условия, потому что switch case
+    //в данном случае был бы очень перегруженным
+    if (id >= 200 && id <= 232) {
+      iconData = WeatherIcons.storm_showers;
+    } else if (id >= 300 && id <= 321 || id >= 520 && id <= 531) {
+      iconData = WeatherIcons.rain_mix;
+    } else if (id >= 500 && id <= 504) {
+      iconData = WeatherIcons.day_rain_mix;
+    } else if (id == 511 || id >= 600 && id <= 622) {
+      iconData = WeatherIcons.snowflake_cold;
+    } else if (id >= 701 && id <= 781) {
+      iconData = WeatherIcons.fog;
+    } else if (id == 800) {
+      iconData = WeatherIcons.day_sunny;
+    } else if (id == 801) {
+      iconData = WeatherIcons.day_sunny_overcast;
+    } else if (id == 802) {
+      iconData = WeatherIcons.cloud;
+    } else if (id == 803 || id == 804) {
+      iconData = WeatherIcons.cloudy;
+    }
+
+    Icon icon = Icon(
+      iconData,
+      color: color,
+    );
+
+    return icon;
   }
 }

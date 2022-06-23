@@ -38,7 +38,7 @@ class SelectionScreen extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
-        image: AssetImage("../../assets/bgi_app_background.jpg"),
+        image: AssetImage("assets/bgi_app_background.jpg"),
         fit: BoxFit.cover,
       )),
       child: Column(

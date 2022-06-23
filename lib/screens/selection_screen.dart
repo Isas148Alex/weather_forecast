@@ -38,10 +38,13 @@ class SelectionScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        TextField(
+            TextField(
           controller: city,
           decoration:
-              const InputDecoration(label: Text(TextConstant.cityInput)),
+              const InputDecoration(
+                  border: OutlineInputBorder(),
+                  label: Text(TextConstant.cityInput),
+              ),
         ),
         ElevatedButton(
             onPressed: () {

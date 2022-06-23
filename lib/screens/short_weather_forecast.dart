@@ -51,39 +51,46 @@ class ShortWeatherForecast extends StatelessWidget {
   //Основная часть экрана - тело Scaffold'а. Прописан BlocConsumer для возможности
   //и строить виджет в зависимости от состояния и реагировать на смену состояния выводом SnackBar'а
   Widget _buildScaffoldBody(BuildContext context) {
-    return BlocConsumer<ShortForecastBloc, ShortForecastState>(
-        builder: (context, state) {
-      //В зависимости от состояния различается отображаемый контент
-      //В момент загрузки показываем прогресс индикатор
-      if (state is ShortForecastInitial || state is ShortForecastLoading) {
-        return const Center(
-          child: CircularProgressIndicator.adaptive(),
-        );
-      }
+    return Container(
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage("../../assets/bgi_app_background.jpg"),
+        fit: BoxFit.cover,
+      )),
+      child: BlocConsumer<ShortForecastBloc, ShortForecastState>(
+          builder: (context, state) {
+        //В зависимости от состояния различается отображаемый контент
+        //В момент загрузки показываем прогресс индикатор
+        if (state is ShortForecastInitial || state is ShortForecastLoading) {
+          return const Center(
+            child: CircularProgressIndicator.adaptive(),
+          );
+        }
 
-      //Если загрузили данные успешно - строим список
-      if (state is ShortForecastLoaded) {
-        return _buildWeatherInfo(state, context);
-      }
+        //Если загрузили данные успешно - строим список
+        if (state is ShortForecastLoaded) {
+          return _buildWeatherInfo(state, context);
+        }
 
-      //При ошибке выводим текст из постановки
-      if (state is ShortForecastLoadingFailed) {
-        return const Center(child: Text(TextConstant.error));
-      }
+        //При ошибке выводим текст из постановки
+        if (state is ShortForecastLoadingFailed) {
+          return const Center(child: Text(TextConstant.error));
+        }
 
-      //В идеале этот текст не должен выводиться никогда, то есть все состояния
-      //должы быть обработаны выше, но текст остается
-      return const Center(child: Text(TextConstant.somethingWentWrong));
-    }, listener: (context, state) {
-      //На случай поимки ошибки, то есть смены состояния в ошибочное
-      if (state is ShortForecastLoadingFailed) {
-        //Выводим сообщение об ошибке в SnackBar. Длительность вынесена в константу, чтобы потом легче было найти
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          duration: const Duration(seconds: snackBarDuration),
-          content: Text(state.error.toString()),
-        ));
-      }
-    });
+        //В идеале этот текст не должен выводиться никогда, то есть все состояния
+        //должы быть обработаны выше, но текст остается
+        return const Center(child: Text(TextConstant.somethingWentWrong));
+      }, listener: (context, state) {
+        //На случай поимки ошибки, то есть смены состояния в ошибочное
+        if (state is ShortForecastLoadingFailed) {
+          //Выводим сообщение об ошибке в SnackBar. Длительность вынесена в константу, чтобы потом легче было найти
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            duration: const Duration(seconds: snackBarDuration),
+            content: Text(state.error.toString()),
+          ));
+        }
+      }),
+    );
   }
 
   //Опять же - выносим логику обработки нажатия на кнопку для удобного ведения
@@ -108,8 +115,9 @@ class ShortWeatherForecast extends StatelessWidget {
       itemBuilder: (context, index) {
         var item = state.weatherInfo[index];
         return Card(
+            color: const Color.fromRGBO(255, 255, 255, 0.7),
             child: ListTile(
-              iconColor: Colors.black,
+          iconColor: Colors.black,
           leading: Icon(
             item.iconData,
           ),

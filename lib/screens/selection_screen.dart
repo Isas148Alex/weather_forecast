@@ -35,23 +35,32 @@ class SelectionScreen extends StatelessWidget {
 
   //Построение тела Scaffold'а
   Widget _buildScaffoldBody(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-            TextField(
-          controller: city,
-          decoration:
-              const InputDecoration(
-                  border: OutlineInputBorder(),
-                  label: Text(TextConstant.cityInput),
+    return Container(
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage("../../assets/bgi_app_background.jpg"),
+        fit: BoxFit.cover,
+      )),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            color: Colors.white,
+            child: TextField(
+              controller: city,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                label: Text(TextConstant.cityInput),
               ),
-        ),
-        ElevatedButton(
-            onPressed: () {
-              _buttonShowForecastPressed(context);
-            },
-            child: const Text(TextConstant.showForecast))
-      ],
+            ),
+          ),
+          ElevatedButton(
+              onPressed: () {
+                _buttonShowForecastPressed(context);
+              },
+              child: const Text(TextConstant.showForecast))
+        ],
+      ),
     );
   }
 

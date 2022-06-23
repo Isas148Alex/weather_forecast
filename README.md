@@ -28,4 +28,4 @@ Test application with weather forecast
 4. Весь код должен быть покрыт комментариями.
 5. Для управления состоянием использовать flutter_bloc.
 
-<img width="888" alt="Untitled" src="https://user-images.githubusercontent.com/63638747/174816404-794c71cc-ef2e-4cb3-bb70-97f8c6d61462.png">
+<img width="1108" alt="Untitled" src="https://user-images.githubusercontent.com/63638747/175311312-56a32d30-d7d0-4d4b-8fd1-4aec506ec38d.png">
